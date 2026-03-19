@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Creator Studio"
+version = "1.0.0"
+id = "artifacts/creator-studio"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 20194
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/creator-studio run dev"
+
+[services.env]
+PORT = "20194"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/creator-studio", "run", "build"]
+publicDir = "artifacts/creator-studio/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
